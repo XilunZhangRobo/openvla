@@ -67,12 +67,22 @@ def decode_and_resize(
             if tf.strings.length(image) == 0:
                 # this is a padding image
                 image = tf.zeros((*resize_size.get(name, (1, 1)), 3), dtype=tf.uint8)
+                # resize_value = resize_size.get(name, (1, 1))
+                # # print(f"resize_value: {resize_value} for name: {name}")
+                # # print (resize_size)
+                # image = tf.zeros((resize_value[0][0], resize_value[0][1], 3), dtype=tf.uint8)
+
             else:
                 image = tf.io.decode_image(image, expand_animations=False, dtype=tf.uint8)
         elif image.dtype != tf.uint8:
             raise ValueError(f"Unsupported image dtype: found image_{name} with dtype {image.dtype}")
         if name in resize_size:
-            image = dl.transforms.resize_image(image, size=resize_size[name])
+            # print ("resize_size[name]", resize_size[name])
+            try:
+                image = dl.transforms.resize_image(image, size=resize_size[name])
+            except:
+                resize_size[name] = (resize_size[name][0][0], resize_size[name][0][1])
+                image = dl.transforms.resize_image(image, size=resize_size[name])
         obs[f"image_{name}"] = image
 
     for name in depth_names:
