@@ -78,10 +78,10 @@ class FinetuneConfig:
     adapter_tmp_dir: Path = Path("adapter-tmp")                     # Temporary directory for LoRA weights before fusing
 
     # Fine-tuning Parameters
-    batch_size: int = 8                                            # Fine-tuning batch size
+    batch_size: int = 6                                            # Fine-tuning batch size
     max_steps: int = 200_000                                        # Max number of fine-tuning steps
     save_steps: int = 5000                                          # Interval for checkpoint saving
-    learning_rate: float = 2e-5                                     # Fine-tuning learning rate
+    learning_rate: float = 1e-5                                     # Fine-tuning learning rate
     grad_accumulation_steps: int = 1                                # Gradient accumulation steps
     image_aug: bool = True                                          # Whether to train with image augmentations
     shuffle_buffer_size: int = 100_000                              # Dataloader shuffle buffer size (can reduce if OOM)
@@ -89,8 +89,8 @@ class FinetuneConfig:
     # LoRA Arguments
     use_lora: bool = True                                           # Whether to use LoRA fine-tuning
     lora_rank: int = 32                                             # Rank of LoRA weight matrix
-    lora_dropout: float = 0.1                                       # Dropout applied to LoRA weights
-    use_quantization: bool = True                                  # Whether to 4-bit quantize VLA for LoRA fine-tuning
+    lora_dropout: float = 0.05                                       # Dropout applied to LoRA weights
+    use_quantization: bool = False                                  # Whether to 4-bit quantize VLA for LoRA fine-tuning
                                                                     #   => CAUTION: Reduces memory but hurts performance
 
     # Tracking Parameters

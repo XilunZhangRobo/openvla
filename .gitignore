@@ -8,6 +8,11 @@ __pycache__/
 
 ## dataset 
 droid/
+## checkpoints 
+runs/
+adapter-tmp/
+## weight and bias 
+wandb/
 
 # Distribution / packaging
 .Python
